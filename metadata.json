@@ -1,0 +1,8 @@
+{
+  "name": "Steve Is Lost: Euro-Trip Survival",
+  "description": "A 16-bit retro arcade first-person storytelling game where you play as Steve, an American lost in Europe. Learn languages while managing your HP, Hunger, Thirst, and Insanity to make it home or start a new life.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

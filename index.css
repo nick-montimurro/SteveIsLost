@@ -1,0 +1,325 @@
+@import "tailwindcss";
+
+/* ===== RETRO GAME BASE STYLES ===== */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #000;
+  font-family: 'Press Start 2P', cursive;
+  color: #fff;
+  overflow-x: hidden;
+  -webkit-font-smoothing: none;
+  -moz-osx-font-smoothing: auto;
+}
+
+/* Pixel art rendering */
+.pixel-art {
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+}
+
+/* ===== CUSTOM SCROLLBAR ===== */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #111;
+}
+::-webkit-scrollbar-thumb {
+  background: #333;
+  border: 1px solid #222;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* ===== CRT OVERLAY EFFECTS ===== */
+.crt-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: 
+    linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%),
+    linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+  z-index: 9999;
+  background-size: 100% 2px, 3px 100%;
+  pointer-events: none;
+}
+
+.scanline {
+  width: 100%;
+  height: 100px;
+  z-index: 10000;
+  background: linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(255, 255, 255, 0.15) 10%,
+    rgba(0, 0, 0, 0.1) 100%
+  );
+  opacity: 0.08;
+  position: fixed;
+  top: -100px;
+  left: 0;
+  animation: scanline 8s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes scanline {
+  0% { top: -100px; }
+  100% { top: 100%; }
+}
+
+/* ===== ANIMATIONS ===== */
+
+/* Fade In */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-fadeIn {
+  animation: fadeIn 0.4s ease-out forwards;
+}
+
+/* Slide Up */
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-slideUp {
+  animation: slideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Slide In from Left */
+@keyframes slideInLeft {
+  from { opacity: 0; transform: translateX(-40px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+.animate-slideInLeft {
+  animation: slideInLeft 0.4s ease-out forwards;
+}
+
+/* Screen Shake */
+@keyframes screenShake {
+  0%, 100% { transform: translateX(0); }
+  10% { transform: translateX(-6px) rotate(-0.5deg); }
+  20% { transform: translateX(6px) rotate(0.5deg); }
+  30% { transform: translateX(-4px); }
+  40% { transform: translateX(4px); }
+  50% { transform: translateX(-2px); }
+  60% { transform: translateX(2px); }
+  70% { transform: translateX(-1px); }
+}
+.animate-shake {
+  animation: screenShake 0.5s ease-out;
+}
+
+/* Sprite Idle Bob */
+@keyframes idleBob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+.animate-idleBob {
+  animation: idleBob 3s ease-in-out infinite;
+}
+
+/* Pixel Pulse Glow */
+@keyframes pixelPulse {
+  0%, 100% { filter: drop-shadow(0 0 8px rgba(59, 130, 246, 0.3)); }
+  50% { filter: drop-shadow(0 0 20px rgba(59, 130, 246, 0.6)); }
+}
+.animate-pixelPulse {
+  animation: pixelPulse 2s ease-in-out infinite;
+}
+
+/* Title Flicker */
+@keyframes titleFlicker {
+  0%, 95%, 100% { opacity: 1; }
+  96% { opacity: 0.6; }
+  97% { opacity: 1; }
+  98% { opacity: 0.4; }
+  99% { opacity: 1; }
+}
+.animate-titleFlicker {
+  animation: titleFlicker 4s ease-in-out infinite;
+}
+
+/* Neon Glow */
+@keyframes neonGlow {
+  0%, 100% { 
+    text-shadow: 0 0 10px rgba(59, 130, 246, 0.8), 0 0 20px rgba(59, 130, 246, 0.4), 0 0 40px rgba(59, 130, 246, 0.2);
+  }
+  50% { 
+    text-shadow: 0 0 5px rgba(59, 130, 246, 0.6), 0 0 10px rgba(59, 130, 246, 0.3), 0 0 20px rgba(59, 130, 246, 0.1);
+  }
+}
+.animate-neonGlow {
+  animation: neonGlow 2s ease-in-out infinite;
+}
+
+/* Choice flash - green for positive */
+@keyframes flashGreen {
+  0% { background-color: rgba(34, 197, 94, 0.4); }
+  100% { background-color: transparent; }
+}
+.animate-flashGreen {
+  animation: flashGreen 0.6s ease-out;
+}
+
+/* Choice flash - red for offensive */
+@keyframes flashRed {
+  0% { background-color: rgba(239, 68, 68, 0.4); }
+  100% { background-color: transparent; }
+}
+.animate-flashRed {
+  animation: flashRed 0.6s ease-out;
+}
+
+/* Choice flash - yellow for neutral */
+@keyframes flashYellow {
+  0% { background-color: rgba(234, 179, 8, 0.3); }
+  100% { background-color: transparent; }
+}
+.animate-flashYellow {
+  animation: flashYellow 0.6s ease-out;
+}
+
+/* Blink cursor for typewriter */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+.animate-blink {
+  animation: blink 0.8s step-end infinite;
+}
+
+/* Entrance for NPC sprite */
+@keyframes spriteEntrance {
+  0% { 
+    opacity: 0; 
+    transform: scale(0.7) translateY(20px); 
+  }
+  60% { 
+    opacity: 1; 
+    transform: scale(1.05) translateY(-5px); 
+  }
+  100% { 
+    opacity: 1; 
+    transform: scale(1) translateY(0); 
+  }
+}
+.animate-spriteEntrance {
+  animation: spriteEntrance 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+/* Journey node pulse */
+@keyframes nodePulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.6); }
+  50% { box-shadow: 0 0 0 8px rgba(59, 130, 246, 0); }
+}
+.animate-nodePulse {
+  animation: nodePulse 2s ease-in-out infinite;
+}
+
+/* Screen transition wipe */
+@keyframes screenWipe {
+  0% { transform: scaleX(0); transform-origin: left; }
+  50% { transform: scaleX(1); transform-origin: left; }
+  50.1% { transform: scaleX(1); transform-origin: right; }
+  100% { transform: scaleX(0); transform-origin: right; }
+}
+.animate-screenWipe {
+  animation: screenWipe 0.8s ease-in-out;
+}
+
+/* Confetti burst for victory */
+@keyframes confettiFall {
+  0% { transform: translateY(-100vh) rotate(0deg); opacity: 1; }
+  100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+}
+
+/* ===== TRANSITION OVERLAY ===== */
+.screen-transition {
+  position: fixed;
+  inset: 0;
+  background: #000;
+  z-index: 9998;
+  pointer-events: none;
+}
+
+/* ===== DIALOGUE BOX PIXEL BORDER ===== */
+.pixel-border {
+  border: 4px solid #4a5568;
+  box-shadow: 
+    inset 2px 2px 0 #2d3748,
+    inset -2px -2px 0 #1a202c,
+    4px 4px 0 rgba(0, 0, 0, 0.3);
+}
+
+/* ===== JOURNEY MAP STYLES ===== */
+.journey-line {
+  background: repeating-linear-gradient(
+    to right,
+    #4a5568 0px,
+    #4a5568 8px,
+    transparent 8px,
+    transparent 16px
+  );
+  height: 3px;
+}
+
+.journey-line-complete {
+  background: repeating-linear-gradient(
+    to right,
+    #3b82f6 0px,
+    #3b82f6 8px,
+    transparent 8px,
+    transparent 16px
+  );
+  height: 3px;
+}
+
+/* ===== STAT BAR PIXEL STYLE ===== */
+.stat-bar-container {
+  background: #111;
+  border: 2px solid #374151;
+  padding: 2px;
+  position: relative;
+}
+
+.stat-bar-container::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    90deg,
+    transparent 0px,
+    transparent 6px,
+    rgba(0, 0, 0, 0.3) 6px,
+    rgba(0, 0, 0, 0.3) 7px
+  );
+  pointer-events: none;
+}
+
+/* ===== BUTTON HOVER GLOW ===== */
+.pixel-btn-glow:hover {
+  box-shadow: 
+    inset -4px -4px 0px 0px rgba(0,0,0,0.3),
+    0 0 15px rgba(59, 130, 246, 0.3);
+}
+
+/* ===== RESPONSIVE HELPERS ===== */
+@media (max-width: 768px) {
+  .mobile-stack {
+    flex-direction: column !important;
+  }
+  .mobile-full {
+    width: 100% !important;
+  }
+}
